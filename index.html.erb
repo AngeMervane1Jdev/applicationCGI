@@ -7,12 +7,16 @@
     <% require "pg" %>
     <% connection = PG::connect(dbname: "goya") %>
     <% connection.internal_encoding = "UTF-8" %>
+
+
     <form action="indicate.cgi" method="POST">
        下記に文字を入力してください<br><br>
       <input type="text"  name="input" ><br>
       <input type="submit" name="送信" >
     </form>
-    <% result = connection.exec("select weight, give_for from crops where quality=false;") %>
+
+
+    <% result = connection.exec("select weight, give_for from crops;") %>
     <% data = [] %>
     <% result.each do |record| %>
       <%  data << "ゴーヤの大きさ：#{record["weight"]} 売った相手：#{record["give_for"]}" %>
@@ -24,5 +28,19 @@
       <input type="text" name="goya" value="<%= data.join(' ') %>">
       <input type="submit" name="送信" >
     </form>
+
+
+     <% result = connection.exec("select weight, give_for from crops where quality=false;") %>
+    <% data = [] %>
+    <% result.each do |record| %>
+      <%  data << "ゴーヤの大きさ：#{record["weight"]} 売った相手：#{record["give_for"]}" %>
+    <% end %>
+    <form action="goya.cgi" method="POST">
+       下のボタンを押して、低品質のゴーヤのサイズ情報ページに移動し、誰が販売したかを確認します。<br><br>
+      <input type="text"  name="goya" value="<%= data.join(' ') %>"><br>
+      <input type="submit" name="送信" >
+    </form>
+
+
   </body>
 </html>
