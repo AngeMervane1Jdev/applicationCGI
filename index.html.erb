@@ -3,7 +3,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   </head>
   <body>
-    <h1>テスト！！！！！！！！！！！！！</h1>
+    <h1>テスト CGI アプリケーション</h1>
     <% require "pg" %>
     <% connection = PG::connect(dbname: "goya") %>
     <% connection.internal_encoding = "UTF-8" %>
@@ -11,7 +11,7 @@
 
     <form action="indicate.cgi" method="POST">
        下記に文字を入力してください<br><br>
-      <input type="text"  name="input" ><br>
+      <input type="text"  name="input" >
       <input type="submit" name="送信" >
     </form>
 
@@ -37,7 +37,7 @@
     <% end %>
     <form action="goya.cgi" method="POST">
        下のボタンを押して、低品質のゴーヤのサイズ情報ページに移動し、誰が販売したかを確認します。<br><br>
-      <input type="text"  name="goya" value="<%= data.join(' ') %>"><br>
+      <input type="text"  name="goya" value="<%= data.join(' ') %>">
       <input type="submit" name="送信" >
     </form>
 
